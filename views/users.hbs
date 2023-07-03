@@ -1,0 +1,38 @@
+<h1>List of users</h1>
+
+
+{{#if users}}
+    <div class="text-center d-flex flex-row people_list ">
+        {{#each users}}
+            <div class="card my-8" style="width: 18rem;">
+                <img src={{this.avatar}} class="card-img-top mx-auto" alt="user avatar" width="100px">
+                <div class="card-body">
+                    <p class="card-title">{{this.username}}</p>
+                    <a class="btn btn-primary" href="/addUser/{{this.id}}">Update</a>
+                    <button class="delete btn btn-primary" data-id="{{this.id}}">Delete</button>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+{{else}}
+    <h1>No data to show</h1>
+{{/if}}
+    
+
+<script>
+    $(".delete").on("click", function(){
+        let id = this.dataset.id;
+
+        fetch(`/deleteUser/${id}`,          //ROUTE
+            {
+                method: "DELETE"            //OPTIONS
+            }
+        )
+        .then((data) =>{                    //CALLBACK
+            if(data.status ==200){
+                $(this).parent().remove();
+            }
+        })
+        console.log(id);
+    });
+</script>

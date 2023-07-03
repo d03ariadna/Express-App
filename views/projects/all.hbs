@@ -1,0 +1,64 @@
+<div role="main" class="main">
+
+    <section class="page-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="breadcrumb">
+                        <li><a href="/">Home</a></li>
+                        <li class="active">Projects</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>All</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+
+        <h2>Proyects</h2>
+
+        {{#if projects}}
+
+        <div class="row featured-boxes">
+            <div class="col-md-3 col-sm-6">
+                <a href="/pyct/new-project" style="text-decoration: none;">
+                    <div class="featured-box featured-box-primary">
+                        <div class="box-content">
+                            <i class="icon-featured fa fa-solid fa-plus"></i>
+                            <h4>ADD NEW PROJECT</h4>
+                            <br>
+                            <br>
+                        </div>
+                    </div>
+                </a>
+            
+            </div>
+
+            {{#each projects}}
+
+                <div class="col-md-3 col-sm-6">
+                    <a href="/pyct/single-project/{{this.id}}" style="text-decoration: none;">
+                        <div class="featured-box featured-box-secundary">
+                            <div class="box-content">
+                                <i class="icon-featured fa fa-user"></i>
+                                <h4>{{this.title}}</h4>
+                                <p>{{this.client}}</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                
+            {{/each}}
+
+        </div>
+
+        {{/if}}
+
+    </div>
+
+</div>

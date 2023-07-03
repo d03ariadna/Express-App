@@ -1,0 +1,180 @@
+<div role="main" class="main">
+
+    <section class="page-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <ul class="breadcrumb">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/pyct/all">Projects</a></li>
+                        <li class="active">Project</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>Single Project</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {{#if project}}
+
+    <div class="container">
+
+        <div class="portfolio-title">
+            <div class="row">
+                <div class="portfolio-nav-all col-md-1">
+                    <a href="/pyct/all" data-tooltip data-original-title="Back to list"><i
+                            class="fa fa-th"></i></a>
+                </div>
+                <div class="col-md-10 center">
+                    <h2 class="shorter">{{project.title}}</h2>
+                </div>
+                <div class="portfolio-nav col-md-1">
+                    <a href="portfolio-single-project.html" class="portfolio-nav-prev" data-tooltip
+                        data-original-title="Previous"><i class="fa fa-chevron-left"></i></a>
+                    <a href="portfolio-single-project.html" class="portfolio-nav-next" data-tooltip
+                        data-original-title="Next"><i class="fa fa-chevron-right"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <hr class="tall">
+
+        <div class="row">
+
+            <div class="col-md-8">
+
+                <div class="portfolio-info">
+                    <div class="row">
+                        <div class="col-md-12 center">
+                            <ul>
+                                <li>
+                                    <a href="#" data-tooltip data-original-title="Like"><i
+                                            class="fa fa-heart"></i>14</a>
+                                </li>
+                                <li>
+                                    <i class="fa fa-calendar"></i> 21 November 2013
+                                </li>
+                                <li>
+                                    <i class="fa fa-tags"></i> <a href="#">Brand</a>, <a href="#">Design</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <h4>Project <strong>Description</strong></h4>
+                <p class="taller">
+                    {{project.description}}
+                </p>
+
+                <ul class="portfolio-details list list-skills icons list-unstyled ">
+                    <li>
+                        <p><strong>Client:</strong></p>
+                        <p><i class="fa fa-solid fa-user"></i>{{project.client}}</p>
+                    </li>
+                    <li>
+                        <p><strong>Skills:</strong></p>
+
+                        <ul class="list list-skills icons list-unstyled list-inline">
+                            <li><i class="fa fa-check-circle"></i> Design</li>
+                            <li><i class="fa fa-check-circle"></i> HTML/CSS</li>
+                            <li><i class="fa fa-check-circle"></i> Javascript</li>
+                            <li><i class="fa fa-check-circle"></i> Backend</li>
+                        </ul>
+                    </li>
+                    
+                </ul>
+
+                <div>
+                    <button class="btn btn-primary btn-lg push-top push-bottom" data-toggle="modal" data-target="#myModal">
+                        Update
+                    </button>
+                    
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                    <h4 class="modal-title" id="myModalLabel">Modify Project</h4>
+                                </div>
+                                <div class="modal-body">
+                                    
+                                                <div class="box-content">
+                                                    <form action="/pyct/modify/{{project.id}}" id="" method="post">
+                                                        <div class="row">
+                                                            <div class="form-group">
+                                                                <div class="col-md-6">
+                                                                    <label>Title</label>
+                                                                    <input type="text" value="{{project.title}}" class="title form-control input-lg" name="title">
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <label>Client</label>
+                                                                    <input type="text" value="{{project.client}}" class="client form-control input-lg" name="client">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="form-group">
+                                                                <div class="col-md-12">
+                                                                    <label>Description</label>
+                                                                    <input type="text" value="{{project.description}}" class="description form-control input-lg" name="description">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <input type="submit" value="Update" class="btn btn-primary pull-right push-bottom"
+                                                                    data-loading-text="Loading...">
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                    {{!-- <button class="submit-btn btn btn-primary" data-id="{{project.id}}" onclick=>Save changes</button> --}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="delete btn btn-danger btn-lg btn-icon" data-id="{{project.id}}">Delete</button>
+                    {{!-- <a href="/pyct/deleteProject/{{project.id}}" class="btn btn-danger btn-lg btn-icon">Delete</a> --}}
+                </div>
+                
+            </div>
+        </div>
+
+        <hr class="tall" />
+
+    </div>
+
+    {{/if}}
+
+</div>
+
+
+<script>
+    $(".delete").on("click", function () {
+        let id = this.dataset.id;
+
+        fetch(`/pyct/deleteProject/${id}`,          
+            {
+                method: "DELETE"           
+            }
+        ).then((data) => {                    
+            if (data.status == 200) {
+                location.href = '/pyct/all'
+            }
+        });
+        console.log(id);
+    });
+
+
+    
+</script>
